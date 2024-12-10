@@ -1,9 +1,9 @@
 import { RouteProps } from "react-router"
-import Paths from "./paths"
 
+import Home from "../pages/Home"
 // Importa tus componentes aquí
 import Login from "../pages/Login"
-import Home from "../pages/Home"
+import Paths from "./paths"
 
 interface RouteGroups {
     public: RouteProps[]
@@ -14,15 +14,15 @@ const routes: RouteGroups = {
     public: [
         {
             path: Paths.LOGIN,
-            element: <Login />
-        }
+            element: <Login />,
+        },
     ],
     private: [
         {
             path: Paths.HOME,
-            element: <Home />
-        }
-    ]
+            element: <Home />,
+        },
+    ],
 }
 
 export default routes

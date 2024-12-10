@@ -1,9 +1,10 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import { AuthProvider } from "./context/AuthContext";
-import ProtectedLayout from "./components/layout/ProtectedLayout";
-import PublicLayout from "./components/layout/PublicLayout";
-import Paths from "./router/paths";
-import routes from "./router/routes";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
+
+import ProtectedLayout from "./components/layout/ProtectedLayout"
+import PublicLayout from "./components/layout/PublicLayout"
+import { AuthProvider } from "./context/AuthContext"
+import Paths from "./router/paths"
+import routes from "./router/routes"
 
 const App = () => {
     return (
@@ -11,7 +12,7 @@ const App = () => {
             <BrowserRouter>
                 <Routes>
                     <Route path="*" element={<Navigate to={Paths.HOME} replace />} />
-                    
+
                     {/* Rutas públicas */}
                     <Route element={<PublicLayout />}>
                         {routes.public.map((route, i) => (
@@ -28,7 +29,7 @@ const App = () => {
                 </Routes>
             </BrowserRouter>
         </AuthProvider>
-    );
-};
+    )
+}
 
-export default App;
+export default App

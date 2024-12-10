@@ -25,18 +25,12 @@ module.exports = {
         "",
         "^[./]",
     ],
-    importOrderSeparation: false,
-    importOrderSortSpecifiers: true,
-    importOrderBuiltinModulesToTop: true,
     importOrderParserPlugins: ["typescript", "jsx", "decorators-legacy"],
-    importOrderMergeDuplicateImports: true,
-    importOrderCombineTypeAndValueImports: true,
-    tailwindConfig: './tailwind.config.js',
+    tailwindConfig: "./tailwind.config.js",
     plugins: [
         "prettier-plugin-css-order",
         "prettier-plugin-organize-attributes",
         "prettier-plugin-tailwindcss",
         "@ianvs/prettier-plugin-sort-imports",
     ],
-    pluginSearchDirs: false
 }

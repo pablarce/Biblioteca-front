@@ -1,20 +1,16 @@
 import React, { useState } from "react"
+import { useAuth } from "@/context/AuthContext"
+import Paths from "@/router/paths"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { ArrowLeft, ArrowLeftFromLine, User, UserRound, UserRoundCog, UserRoundCogIcon } from "lucide-react"
+import axios from "axios"
+import { ArrowLeftFromLine, Loader2, User, UserRoundCog } from "lucide-react"
 import { useForm } from "react-hook-form"
+import { useNavigate } from "react-router-dom"
 import { z } from "zod"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/Button/Button"
-import {
-    Form,
-    FormControl,
-    FormDescription,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
-} from "@/components/ui/Form/Form"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/Form/Form"
 import { Input } from "@/components/ui/Input/Input"
 
 // Define the form validation schema with Zod
@@ -52,11 +48,10 @@ interface RegisterFormInputs {
 
 interface RegisterBoxProps {
     className?: string
-    setIsLogin: (isLogin: boolean) => void
-    isLogin: boolean
+    setIsLoginPage: (isLoginPage: boolean) => void
 }
 
-const RegisterBox: React.FC<RegisterBoxProps> = ({ className, setIsLogin, isLogin }) => {
+const RegisterBox: React.FC<RegisterBoxProps> = ({ className, setIsLoginPage }) => {
     // Initialize the form with Zod validation
     const form = useForm<RegisterFormInputs>({
         resolver: zodResolver(registerFormSchema),
@@ -69,11 +64,32 @@ const RegisterBox: React.FC<RegisterBoxProps> = ({ className, setIsLogin, isLogi
         },
     })
 
+    const { login } = useAuth() // Contexto de autenticación
+    const [error, setError] = useState<string | null>(null)
     const [selectedRole, setSelectedRole] = useState<"user" | "admin">("user")
+    const [isLoading, setIsLoading] = useState<boolean>(false) // Estado de carga
 
-    const onSubmit = (data: RegisterFormInputs) => {
-        console.log("Register data:", { ...data, role: selectedRole })
-        // You can handle form submission here (e.g., make an API request)
+    const navigate = useNavigate() // Hook para navegación
+
+    const onSubmit = async (data: RegisterFormInputs) => {
+        setIsLoading(true) // Inicia el estado de carga
+        setError(null)
+        try {
+            await new Promise((resolve) => setTimeout(resolve, 1000)) // Simula un retraso de 1 segundo
+            const response = await axios.post("http://127.0.0.1:8000/users/register", {
+                username: data.username,
+                email: data.email,
+                password: data.password,
+                role: selectedRole,
+            })
+            const token = response.data.access_token
+            login(token)
+            navigate(Paths.HOME, { replace: true }) // Navega a la pantalla de inicio
+        } catch (err: any) {
+            setError(err.response?.data?.detail || "Registration failed.")
+        } finally {
+            setIsLoading(false)
+        }
     }
 
     return (
@@ -81,7 +97,7 @@ const RegisterBox: React.FC<RegisterBoxProps> = ({ className, setIsLogin, isLogi
             <div className="flex items-center justify-between w-full">
                 <div
                     className="rounded-full hover:bg-gray-700 p-3 w-10 h-10 flex items-center justify-center duration-300 cursor-pointer"
-                    onClick={() => setIsLogin(true)}
+                    onClick={() => setIsLoginPage(true)}
                 >
                     <ArrowLeftFromLine className="w-6 h-6" />
                 </div>
@@ -195,11 +211,13 @@ const RegisterBox: React.FC<RegisterBoxProps> = ({ className, setIsLogin, isLogi
                     />
 
                     {/* Submit Button */}
-                    <Button type="submit" className="mt-4 w-full hover:bg-gray-700">
+                    <Button type="submit" className="mt-4 w-full hover:bg-gray-700" disabled={isLoading}>
+                        {isLoading && <Loader2 className="animate-spin h-5 w-5 mr-1" viewBox="0 0 24 24" />}
                         Registrarse
                     </Button>
                 </form>
             </Form>
+            {error && <p className="text-red-500 mt-4">{error}</p>}
             <p className="text-sm font-light text-center pt-4 ">
                 Al hacer clic en registrarse, aceptas nuestros Términos de Servicio y Política de Privacidad.
             </p>

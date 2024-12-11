@@ -1,6 +1,11 @@
-import React from "react"
+import React, { useState } from "react"
+import { useAuth } from "@/context/AuthContext"
+import Paths from "@/router/paths"
 import { zodResolver } from "@hookform/resolvers/zod"
+import axios from "axios"
+import { Eye, EyeClosed, Loader2 } from "lucide-react"
 import { useForm } from "react-hook-form"
+import { useNavigate } from "react-router-dom"
 import { z } from "zod"
 
 import { cn } from "@/lib/utils"
@@ -34,12 +39,11 @@ interface LoginFormInputs {
 }
 
 interface LoginBoxProps {
-    isLogin: boolean
-    setIsLogin: (isLogin: boolean) => void
+    setIsLoginPage: (isLoginPage: boolean) => void
     className?: string
 }
 
-const LoginBox: React.FC<LoginBoxProps> = ({ isLogin, setIsLogin, className }) => {
+const LoginBox: React.FC<LoginBoxProps> = ({ setIsLoginPage, className }) => {
     // Initialize the form with Zod validation
     const form = useForm<LoginFormInputs>({
         resolver: zodResolver(formSchema),
@@ -49,10 +53,36 @@ const LoginBox: React.FC<LoginBoxProps> = ({ isLogin, setIsLogin, className }) =
         },
     })
 
-    const onSubmit = (data: LoginFormInputs) => {
-        console.log("Login data:", data)
-        // You can handle form submission here (e.g., make an API request)
-    }
+    const [isLoading, setIsLoading] = useState<boolean>(false) // Estado de carga
+    const [error, setError] = useState<string | null>(null)
+    const [showPassword, setShowPassword] = useState<boolean>(false) // Estado para mostrar/ocultar contraseña
+    const navigate = useNavigate()
+
+    const { login } = useAuth()
+
+    const onSubmit = async (data: LoginFormInputs) => {
+        setIsLoading(true);
+        setError(null);
+        try {
+            const response = await axios.post("http://127.0.0.1:8000/users/login", {
+                identifier: data.username,
+                password: data.password,
+            });
+            const token = response.data.access_token;
+            login(token);
+            navigate(Paths.HOME, { replace: true });
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                setError((err as any).response?.data?.detail || "Login failed.");
+            } else {
+                setError("Login failed.");
+            }
+        } finally {
+            setIsLoading(false);
+        }
+    };
+    
+    
 
     return (
         <div className={cn(className, "flex flex-col items-center justify-center text-white")}>
@@ -88,9 +118,22 @@ const LoginBox: React.FC<LoginBoxProps> = ({ isLogin, setIsLogin, className }) =
                         render={({ field }) => (
                             <FormItem>
                                 <FormLabel>Password</FormLabel>
-                                <FormControl>
-                                    <Input type="password" placeholder="Enter password" {...field} />
+                                <FormControl className="relative">
+                                    <div className="relative text-gray-600">
+                                        <Input
+                                            type={showPassword ? "text" : "password"}
+                                            placeholder="Enter password"
+                                            {...field}
+                                        />
+                                        <span
+                                            className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
+                                            onClick={() => setShowPassword(!showPassword)}
+                                        >
+                                            {showPassword ? <EyeClosed /> : <Eye />}
+                                        </span>
+                                    </div>
                                 </FormControl>
+
                                 <FormDescription>Enter your password.</FormDescription>
                                 <FormMessage>{form.formState.errors.password?.message}</FormMessage>
                             </FormItem>
@@ -98,18 +141,20 @@ const LoginBox: React.FC<LoginBoxProps> = ({ isLogin, setIsLogin, className }) =
                     />
 
                     {/* Submit Button */}
-                    <Button type="submit" className="mt-4 w-full hover:bg-gray-700">
+                    <Button type="submit" className="mt-4 w-full hover:bg-gray-700" disabled={isLoading}>
+                        {isLoading && <Loader2 className="animate-spin h-5 w-5 mr-1" viewBox="0 0 24 24" />}
                         Login
                     </Button>
                 </form>
             </Form>
+            {error && <p className="text-red-500 mt-4">{error}</p>}
             <div className="flex justify-center items-center gap-1 w-full pt-4">
                 <div className="w-full h-0.5 bg-gray-500 font-light" />
                 <p className="text-sm min-w-28 font-light text-center">or create an account here</p>
                 <div className="w-full h-0.5 bg-gray-500 font-light" />
             </div>
             <Button
-                onClick={() => setIsLogin(false)}
+                onClick={() => setIsLoginPage(false)}
                 className="mt-4 w-full bg-gray-200 text-black hover:text-gray-200 hover:bg-gray-700 duration-300"
             >
                 Create account

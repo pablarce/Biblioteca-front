@@ -61,28 +61,26 @@ const LoginBox: React.FC<LoginBoxProps> = ({ setIsLoginPage, className }) => {
     const { login } = useAuth()
 
     const onSubmit = async (data: LoginFormInputs) => {
-        setIsLoading(true);
-        setError(null);
+        setIsLoading(true)
+        setError(null)
         try {
             const response = await axios.post("http://127.0.0.1:8000/users/login", {
                 identifier: data.username,
                 password: data.password,
-            });
-            const token = response.data.access_token;
-            login(token);
-            navigate(Paths.HOME, { replace: true });
+            })
+            const token = response.data.access_token
+            login(token)
+            navigate(Paths.HOME, { replace: true })
         } catch (err: unknown) {
             if (err instanceof Error) {
-                setError((err as any).response?.data?.detail || "Login failed.");
+                setError((err as any).response?.data?.detail || "Login failed.")
             } else {
-                setError("Login failed.");
+                setError("Login failed.")
             }
         } finally {
-            setIsLoading(false);
+            setIsLoading(false)
         }
-    };
-    
-    
+    }
 
     return (
         <div className={cn(className, "flex flex-col items-center justify-center text-white")}>

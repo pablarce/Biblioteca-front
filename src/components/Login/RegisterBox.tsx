@@ -172,14 +172,16 @@ const RegisterBox: React.FC<RegisterBoxProps> = ({ className, setIsLogin, isLogi
                                 <FormControl>
                                     <div className="flex space-x-4 w-full pt-5">
                                         <div
-                                            className={`select-none flex flex-col items-center justify-center cursor-pointer duration-300 p-4 border w-1/2 ${selectedRole === "user" ? "bg-gray-700 border-white shadow-xl" : "bg-gray-500 border-gray-800"}`}
+                                            className={`select-none flex flex-col items-center justify-center cursor-pointer duration-300 p-4 border w-1/2 hover:scale-100
+                                                 ${selectedRole === "user" ? "bg-gray-700 border-white shadow-xl sclae-100" : "bg-gray-500 border-gray-800 scale-95"}`}
                                             onClick={() => setSelectedRole("user")}
                                         >
-                                            <User/>
+                                            <User />
                                             <p>Usuario</p>
                                         </div>
                                         <div
-                                            className={`select-none flex flex-col items-center justify-center cursor-pointer duration-300 p-4 border w-1/2 ${selectedRole === "admin" ? "bg-gray-700 border-white shadow-xl" : "bg-gray-500 border-gray-800"}`}
+                                            className={`select-none flex flex-col items-center justify-center cursor-pointer duration-300 p-4 border w-1/2  hover:scale-100
+                                                 ${selectedRole === "admin" ? "bg-gray-700 border-white shadow-xl scale-100" : "bg-gray-500 border-gray-800 scale-95"}`}
                                             onClick={() => setSelectedRole("admin")}
                                         >
                                             <UserRoundCog></UserRoundCog>

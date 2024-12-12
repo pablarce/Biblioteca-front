@@ -1,7 +1,9 @@
-import React from "react"
+import React, { useState } from "react"
 
 import { decodeToken } from "@/utils/tokenUtils"
 import Account from "@/components/Home/Account"
+import Header from "@/components/Home/Header"
+import Body from "@/components/Home/Body"
 
 interface HomeProps {
     className?: string
@@ -15,17 +17,18 @@ const Home: React.FC<HomeProps> = ({ className }) => {
         tokenData = decodeToken(token)
     }
 
+    const [page, setPage] = useState<string>("order")
+
     return (
-        <div className={className}>
+        <div className={`h-screen flex flex-col ${className}`}>
             <Account
                 className="absolute top-3 right-3"
                 email={tokenData?.sub || ""}
                 username={tokenData?.username || ""}
                 role={tokenData?.role || ""}
             />
-            <div className="flex flex-col items-center justify-center h-screen">
-                <h1 className="text-2xl font-bold">Home</h1>
-            </div>
+            <Header className="h-[140px]" page={page} setPage={setPage} />
+            <Body className="h-full" page={page} />
         </div>
     )
 }

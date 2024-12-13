@@ -30,7 +30,7 @@ const Header = ({ page, setPage, className }: HeaderInterface) => {
                     ))}
                 </div>
                 <div
-                    className="absolute bottom-0 h-0.5 bg-white transition-all duration-300"
+                    className="absolute bottom-0 h-0.5 bg-gray-200 transition-all duration-300"
                     style={{
                         width: `${100 / tabs.length}%`,
                         transform: `translateX(${tabs.findIndex(t => t.id === page) * 100}%)`

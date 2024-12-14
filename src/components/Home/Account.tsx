@@ -1,11 +1,11 @@
+import { useState } from "react"
+import { useAuth } from "@/context/AuthContext"
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar"
-import { CalendarDays, User, UserRoundCog } from "lucide-react"
+import { CalendarDays, Loader2, User, UserRoundCog } from "lucide-react"
 
 import { cn } from "@/lib/utils"
-import { useAuth } from "@/context/AuthContext"
-import { useState } from "react"
-import { Loader2 } from "lucide-react"
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/Hover-card/Hover-card"
+
 interface AccountProps {
     email: string
     username: string

@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils"
-import Order from "./Body/Order"
+
 import List from "./Body/List"
+import Order from "./Body/Order"
 
 interface BodyInterface {
     page: string
@@ -19,11 +20,7 @@ const Body = ({ page, className }: BodyInterface) => {
         }
     }
 
-    return (
-        <div className={cn("w-full h-full bg-white", className)}>
-            {renderContent()}
-        </div>
-    )
+    return <div className={cn("w-full h-full bg-white", className)}>{renderContent()}</div>
 }
 
 export default Body

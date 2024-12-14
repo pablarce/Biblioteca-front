@@ -9,7 +9,7 @@ interface HeaderInterface {
 const Header = ({ page, setPage, className }: HeaderInterface) => {
     const tabs = [
         { id: "order", label: "Realizar prestamo" },
-        { id: "list", label: "Listar prestamos" }
+        { id: "list", label: "Listar prestamos" },
     ]
 
     return (
@@ -33,7 +33,7 @@ const Header = ({ page, setPage, className }: HeaderInterface) => {
                     className="absolute bottom-0 h-0.5 bg-gray-200 transition-all duration-300"
                     style={{
                         width: `${100 / tabs.length}%`,
-                        transform: `translateX(${tabs.findIndex(t => t.id === page) * 100}%)`
+                        transform: `translateX(${tabs.findIndex((t) => t.id === page) * 100}%)`,
                     }}
                 />
             </div>

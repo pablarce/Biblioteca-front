@@ -2,8 +2,8 @@ import React, { useState } from "react"
 
 import { decodeToken } from "@/utils/tokenUtils"
 import Account from "@/components/Home/Account"
-import Header from "@/components/Home/Header"
 import Body from "@/components/Home/Body"
+import Header from "@/components/Home/Header"
 
 interface HomeProps {
     className?: string

@@ -1,0 +1,67 @@
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["multiSchema"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  schemas  = ["public", "auth"]
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  username  String
+  admin     Boolean
+  createdAt DateTime @default(now())
+
+  // Relación con Loan (un usuario puede tener muchos préstamos)
+  loans Loan[]
+
+  @@schema("public") // Asignar al esquema "public"
+  @@schema("auth") // Esquema auth
+}
+
+model Book {
+  id              Int      @id @default(autoincrement())
+  name            String
+  author          String
+  genre           String
+  publicationDate DateTime
+
+  // Relación con Library (un libro puede estar en una biblioteca)
+  library Library?
+  // Relación con Loan (un libro puede tener muchos préstamos)
+  loans   Loan[]
+
+  @@schema("public") // Asignar al esquema "public"
+}
+
+model Library {
+  id       Int @id @default(autoincrement())
+  bookId   Int @unique
+  quantity Int
+
+  // Relación con Book (una biblioteca tiene un libro)
+  book Book @relation(fields: [bookId], references: [id])
+
+  @@schema("public") // Asignar al esquema "public"
+}
+
+model Loan {
+  id        Int       @id @default(autoincrement())
+  userId    String
+  bookId    Int
+  quantity  Int
+  startDate DateTime
+  endDate   DateTime?
+  status    String
+
+  // Relación con User (un préstamo pertenece a un usuario)
+  user User @relation(fields: [userId], references: [id])
+  // Relación con Book (un préstamo pertenece a un libro)
+  book Book @relation(fields: [bookId], references: [id])
+
+  @@schema("public") // Asignar al esquema "public"
+}

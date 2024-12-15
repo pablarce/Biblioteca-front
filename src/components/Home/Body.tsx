@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils"
 
 import List from "./Body/List"
-import Order from "./Body/Order"
+import Order from "./Body/Order/Order"
 
 interface BodyInterface {
     page: string

@@ -1,6 +1,6 @@
 import React, { useState } from "react"
+import { useAuth } from "@/context/AuthContext"
 
-import { decodeToken } from "@/utils/tokenUtils"
 import Account from "@/components/Home/Account"
 import Body from "@/components/Home/Body"
 import Header from "@/components/Home/Header"
@@ -10,12 +10,7 @@ interface HomeProps {
 }
 
 const Home: React.FC<HomeProps> = ({ className }) => {
-    const token = localStorage.getItem("token")
-    let tokenData = null
-
-    if (token) {
-        tokenData = decodeToken(token)
-    }
+    const { user } = useAuth()
 
     const [page, setPage] = useState<string>("order")
 
@@ -23,9 +18,10 @@ const Home: React.FC<HomeProps> = ({ className }) => {
         <div className={`h-screen flex flex-col ${className}`}>
             <Account
                 className="absolute top-3 right-3"
-                email={tokenData?.sub || ""}
-                username={tokenData?.username || ""}
-                role={tokenData?.role || ""}
+                email={user?.email || ""}
+                username={user?.username || ""}
+                admin={user?.admin || false}
+                created_at={user?.created_at || ""}
             />
             <Header className="h-[140px]" page={page} setPage={setPage} />
             <Body className="h-full" page={page} />

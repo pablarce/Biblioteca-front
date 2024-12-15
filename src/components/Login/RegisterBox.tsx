@@ -64,7 +64,8 @@ const RegisterBox: React.FC<RegisterBoxProps> = ({ className, setIsLoginPage }) 
         },
     })
 
-    const { login } = useAuth() // Contexto de autenticación
+    const { register } = useAuth()
+
     const [error, setError] = useState<string | null>(null)
     const [selectedRole, setSelectedRole] = useState<"user" | "admin">("user")
     const [isLoading, setIsLoading] = useState<boolean>(false) // Estado de carga
@@ -72,26 +73,24 @@ const RegisterBox: React.FC<RegisterBoxProps> = ({ className, setIsLoginPage }) 
     const navigate = useNavigate() // Hook para navegación
 
     const onSubmit = async (data: RegisterFormInputs) => {
-        setIsLoading(true) // Inicia el estado de carga
+        setIsLoading(true)
         setError(null)
+
+        if (data.password !== data.confirmPassword) {
+            setError("Las contraseñas no coinciden.")
+            setIsLoading(false)
+            return
+        }
+
         try {
-            await new Promise((resolve) => setTimeout(resolve, 1000)) // Simula un retraso de 1 segundo
-            const response = await axios.post("http://127.0.0.1:8000/users/register", {
-                username: data.username,
-                email: data.email,
-                password: data.password,
-                role: selectedRole,
-            })
-            const token = response.data.access_token
-            login(token)
-            navigate(Paths.HOME, { replace: true }) // Navega a la pantalla de inicio
+            await register(data.email, data.password, data.username, data.role === "admin") // Usamos `register` del contexto
+            navigate(Paths.HOME, { replace: true }) // Redirige al home después del registro
         } catch (err: any) {
-            setError(err.response?.data?.detail || "Registration failed.")
+            setError(err.message || "Hubo un problema durante el registro.")
         } finally {
             setIsLoading(false)
         }
     }
-
     return (
         <div className={cn(className, "flex flex-col items-center justify-center text-white")}>
             <div className="flex items-center justify-between w-full">

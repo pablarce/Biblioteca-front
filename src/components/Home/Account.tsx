@@ -9,11 +9,12 @@ import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/H
 interface AccountProps {
     email: string
     username: string
-    role: string
+    admin: boolean
+    created_at: string
     className?: string
 }
 
-const Account = ({ email, username, role, className }: AccountProps) => {
+const Account = ({ email, username, admin, created_at, className }: AccountProps) => {
     const { logout } = useAuth()
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -43,21 +44,18 @@ const Account = ({ email, username, role, className }: AccountProps) => {
             <HoverCardContent>
                 <div className="flex flex-col items-center space-y-4">
                     <div className="flex justify-between items-center space-x-4">
-                        <Avatar>
-                            <div className="w-10 h-10 flex items-center justify-center bg-gray-200 rounded-full">
-                                {role === "admin" ? (
-                                    <UserRoundCog className="w-6 h-6" />
-                                ) : (
-                                    <User className="w-6 h-6" />
-                                )}
+                        <Avatar className="flex flex-col items-center justify-center">
+                            <div className="w-10 h-10 flex flex-col items-center justify-center bg-gray-200 rounded-full">
+                                {admin ? <UserRoundCog className="w-6 h-6" /> : <User className="w-6 h-6" />}
                             </div>
+                            {admin ? "admin" : "user"}
                         </Avatar>
-                        <div className="space-y-1">
+                        <div className="space-y-1 duration-300">
                             <h4 className="text-sm font-semibold">@{username}</h4>
-                            <p className="text-sm">{email}</p>
+                            <p className="text-sm max-w-[170px] truncate">{email}</p>
                             <div className="flex items-center">
                                 <CalendarDays className="mr-2 h-4 w-4 opacity-70" />
-                                <span className="text-xs text-muted-foreground">Joined December 2024</span>
+                                <span className="text-xs text-muted-foreground">{created_at}</span>
                             </div>
                         </div>
                     </div>

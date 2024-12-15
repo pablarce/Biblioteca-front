@@ -63,20 +63,12 @@ const LoginBox: React.FC<LoginBoxProps> = ({ setIsLoginPage, className }) => {
     const onSubmit = async (data: LoginFormInputs) => {
         setIsLoading(true)
         setError(null)
+
         try {
-            const response = await axios.post("http://127.0.0.1:8000/users/login", {
-                identifier: data.username,
-                password: data.password,
-            })
-            const token = response.data.access_token
-            login(token)
-            navigate(Paths.HOME, { replace: true })
-        } catch (err: unknown) {
-            if (err instanceof Error) {
-                setError((err as any).response?.data?.detail || "Login failed.")
-            } else {
-                setError("Login failed.")
-            }
+            await login(data.username, data.password) // Usamos `login` desde el AuthContext
+            navigate(Paths.HOME, { replace: true }) // Redirige al usuario al home después de iniciar sesión
+        } catch (err: any) {
+            setError(err.message || "Hubo un problema al iniciar sesión.")
         } finally {
             setIsLoading(false)
         }

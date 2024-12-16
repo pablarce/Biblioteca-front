@@ -1,50 +1,108 @@
-# React + TypeScript + Vite
+# ✨ Sistema de Gestión de Biblioteca ✨
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[![Vercel Deploy](https://img.shields.io/badge/Deployed%20on-Vercel-blue?style=flat-square&logo=vercel)](https://tu-proyecto.vercel.app/)  
+[![Supabase](https://img.shields.io/badge/Backend-Supabase-green?style=flat-square&logo=supabase)](https://supabase.com/)
 
-Currently, two official plugins are available:
+## Descripción
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Este proyecto es una aplicación web moderna para la gestión de bibliotecas. Permite realizar préstamos, devoluciones y gestionar usuarios de forma eficiente, combinando una interfaz intuitiva con un backend escalable basado en Supabase.
 
-## Expanding the ESLint configuration
+## Tecnologías
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### Frontend
+- **[Vite](https://vitejs.dev/):** Para un entorno de desarrollo rápido y eficiente.
+- **[React](https://reactjs.org/):** Biblioteca principal para construir interfaces de usuario.
+- **[ShadCN](https://shadcn.dev/):** Componentes reutilizables y accesibles.
+- **[React Router](https://reactrouter.com/):** Navegación y manejo de rutas.
+- **[Tailwind CSS](https://tailwindcss.com/):** Estilizado moderno y utilitario.
+- **[Lucide React](https://lucide.dev/):** Íconos personalizados para mejorar la experiencia visual.
 
-- Configure the top-level `parserOptions` property like this:
+### Backend
+- **[Supabase](https://supabase.com/):** Plataforma de backend como servicio basada en PostgreSQL.
+- Consultas personalizadas en **SQL** para acceso a datos.
 
-```js
-export default tseslint.config({
-    languageOptions: {
-        // other options...
-        parserOptions: {
-            project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-            tsconfigRootDir: import.meta.dirname,
-        },
-    },
-})
+### Hosting
+- **[Vercel](https://vercel.com/):** Hosting rápido y escalable para el frontend.
+
+---
+
+## Características
+- **Gestión de Préstamos:** Sistema eficiente para registrar y devolver libros.
+- **UI Moderna:** Diseño responsivo y atractivo con componentes accesibles.
+- **Autenticación:** Implementada a través de Supabase para gestionar usuarios y permisos.
+- **Páginas Principales:**
+  - **Login:** Pantalla inicial para autenticación de usuarios.
+  - **Home:** Panel principal con acceso a funcionalidades de la biblioteca.
+- **Optimizado:** Construido con Vite y Tailwind para alto rendimiento y carga rápida.
+
+---
+
+## Capturas de Pantalla
+
+### Pantalla de Login
+![Pantalla de Login](https://via.placeholder.com/800x400?text=Pantalla+de+Login)
+
+### Pantalla de Home
+![Pantalla de Home](https://via.placeholder.com/800x400?text=Pantalla+de+Home)
+
+---
+
+## Instalación y Uso
+
+1. Clonar el repositorio:
+   ```bash
+   git clone https://github.com/tu-usuario/tu-repo.git
+   ```
+2. Instalar las dependencias:
+   ```bash
+   cd tu-repo
+   npm install
+   ```
+3. Configurar las variables de entorno:
+   - Crear un archivo `.env` en la raíz del proyecto.
+   - Agregar las claves de acceso de Supabase y Vercel.
+4. Iniciar el servidor de desarrollo:
+   ```bash
+   npm run dev
+   ```
+
+---
+
+## Estructura del Proyecto
+```plaintext
+src/
+├── components/       # Componentes reutilizables
+├── pages/            # Páginas principales
+├── routes/           # Configuración de rutas
+├── styles/           # Estilos globales
+├── utils/            # Funciones auxiliares
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+---
 
-```js
-// eslint.config.js
-import react from "eslint-plugin-react"
+## Contribución
 
-export default tseslint.config({
-    // Set the react version
-    settings: { react: { version: "18.3" } },
-    plugins: {
-        // Add the react plugin
-        react,
-    },
-    rules: {
-        // other rules...
-        // Enable its recommended rules
-        ...react.configs.recommended.rules,
-        ...react.configs["jsx-runtime"].rules,
-    },
-})
-```
+¡Contribuciones son bienvenidas! Por favor:
+- Haz un fork del proyecto.
+- Crea una rama con tu feature: `git checkout -b feature/mi-feature`.
+- Envía un pull request.
+
+---
+
+## Licencia
+Este proyecto está licenciado bajo la [MIT License](LICENSE).
+
+---
+
+## Demo
+Visita la aplicación desplegada en [https://tu-proyecto.vercel.app/](https://tu-proyecto.vercel.app/).
+
+---
+
+## Recursos
+- [Guía de Inicio con Supabase](https://supabase.com/docs)
+- [Documentación de React](https://reactjs.org/docs/getting-started.html)
+- [Guía de Tailwind](https://tailwindcss.com/docs)
+
+![Tecnologías](https://via.placeholder.com/1000x400?text=Imagen+de+Todas+Las+Tecnologías+Juntas)
+

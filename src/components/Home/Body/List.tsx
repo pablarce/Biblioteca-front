@@ -16,7 +16,7 @@ import { ArrowUpDown, Loader2 } from "lucide-react"
 import { Loan } from "@/lib/types"
 import { Button } from "@/components/ui/Button/Button"
 import { Input } from "@/components/ui/Input/Input"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/Table/table"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/Table/Table"
 
 interface ListProps {
     className?: string

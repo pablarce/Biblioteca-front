@@ -1,5 +1,5 @@
 import * as React from "react"
-import { useLoans } from "@/context/LoansContext"
+import { useLibrary } from "@/context/LibraryContext"
 import {
     ColumnDef,
     ColumnFiltersState,
@@ -13,24 +13,24 @@ import {
 } from "@tanstack/react-table"
 import { ArrowUpDown, Loader2 } from "lucide-react"
 
-import { Loan } from "@/lib/types"
+import { LibraryBook } from "@/lib/types"
 import { Button } from "@/components/ui/Button/Button"
 import { Input } from "@/components/ui/Input/Input"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/Table/table"
 
-interface ListProps {
+interface LibraryProps {
     className?: string
 }
 
-export const List: React.FC<ListProps> = ({ className }) => {
-    const { loans, error, loading } = useLoans()
+export const Library: React.FC<LibraryProps> = ({ className }) => {
+    const { libraryData, error, loading, idSelected, setIdSelected } = useLibrary()
 
     const [sorting, setSorting] = React.useState<SortingState>([])
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
 
-    const columns: ColumnDef<Loan>[] = [
+    const columns: ColumnDef<LibraryBook>[] = [
         {
-            accessorKey: "book_name",
+            accessorKey: "name",
             header: ({ column }) => (
                 <Button
                     variant="ghost"
@@ -41,73 +41,44 @@ export const List: React.FC<ListProps> = ({ className }) => {
                     <ArrowUpDown className="ml-2 h-4 w-4" />
                 </Button>
             ),
-            cell: ({ row }) => <div className="font-medium">{row.getValue("book_name")}</div>,
+            cell: ({ row }) => <div className="font-medium">{row.getValue("name")}</div>,
         },
         {
-            accessorKey: "username",
+            accessorKey: "author",
             header: ({ column }) => (
                 <Button
                     variant="ghost"
                     className="text-white"
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                 >
-                    Usuario
+                    Autor
                     <ArrowUpDown className="ml-2 h-4 w-4" />
                 </Button>
             ),
-            cell: ({ row }) => <div className="font-medium ">{row.getValue("username")}</div>,
+            cell: ({ row }) => <div className="text-white">{row.getValue("author")}</div>,
         },
         {
-            accessorKey: "email",
-            header: "Email",
-            cell: ({ row }) => <div>{row.getValue("email")}</div>,
+            accessorKey: "genre",
+            header: "Género",
+            cell: ({ row }) => <div className="capitalize text-white">{row.getValue("genre")}</div>,
         },
-
+        {
+            accessorKey: "publication_date",
+            header: "Fecha de Publicación",
+            cell: ({ row }) => {
+                const date = new Date(row.getValue("publication_date"))
+                return <div className="text-white">{date.toLocaleDateString()}</div>
+            },
+        },
         {
             accessorKey: "quantity",
             header: "Cantidad",
-            cell: ({ row }) => <div className="font-medium  ">{row.getValue("quantity")}</div>,
-        },
-        {
-            accessorKey: "start_date",
-            header: "Inicio",
-            cell: ({ row }) => {
-                const date = new Date(row.getValue("start_date"))
-                return <div>{date.toLocaleDateString()}</div>
-            },
-        },
-        {
-            accessorKey: "end_date",
-            header: "Devolución",
-            cell: ({ row }) => {
-                const date = new Date(row.getValue("end_date"))
-                return <div>{date.toLocaleDateString()}</div>
-            },
-        },
-        {
-            accessorKey: "status",
-            header: "Estado",
-            cell: ({ row }) => {
-                const status = row.getValue("status")
-                return (
-                    <div
-                        className={`font-semibold ${
-                            status === "active"
-                                ? "text-green-600"
-                                : status === "late"
-                                  ? "text-red-600"
-                                  : "text-white"
-                        }`}
-                    >
-                        <p>{status as string}</p>
-                    </div>
-                )
-            },
+            cell: ({ row }) => <div className="text-right font-medium text-white">{row.getValue("quantity")}</div>,
         },
     ]
 
     const table = useReactTable({
-        data: loans || [],
+        data: libraryData || [],
         columns,
         getCoreRowModel: getCoreRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
@@ -122,13 +93,13 @@ export const List: React.FC<ListProps> = ({ className }) => {
     })
 
     return (
-        <div className={`w-full text-white p-6 bg-main-gradient ${className}`}>
+        <div className={`w-full text-white p-6 ${className}`}>
             {/* Barra de búsqueda */}
             <div className="flex items-center py-4">
                 <Input
-                    placeholder="Buscar por nombre de libro..."
-                    value={(table.getColumn("book_name")?.getFilterValue() as string) ?? ""}
-                    onChange={(event) => table.getColumn("book_name")?.setFilterValue(event.target.value)}
+                    placeholder="Buscar libros por nombre..."
+                    value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+                    onChange={(event) => table.getColumn("name")?.setFilterValue(event.target.value)}
                     className="max-w-sm"
                 />
             </div>
@@ -161,13 +132,22 @@ export const List: React.FC<ListProps> = ({ className }) => {
                             </TableRow>
                         ) : error ? (
                             <TableRow>
-                                <TableCell colSpan={columns.length} className="h-24 text-red-600 text-center">
-                                    Error al cargar los datos.
+                                <TableCell colSpan={columns.length} className="h-24">
+                                    <div className="flex flex-col items-center justify-center text-destructive">
+                                        <p>Error al cargar los datos</p>
+                                        <p className="text-sm text-muted-foreground">{error}</p>
+                                    </div>
                                 </TableCell>
                             </TableRow>
                         ) : table.getRowModel().rows?.length ? (
                             table.getRowModel().rows.map((row) => (
-                                <TableRow key={row.id}>
+                                <TableRow
+                                    key={row.id}
+                                    onClick={() => setIdSelected(row.original.id)}
+                                    className={`cursor-pointer ${
+                                        idSelected === row.original.id ? "bg-green-500 text-white" : ""
+                                    }`}
+                                >
                                     {row.getVisibleCells().map((cell) => (
                                         <TableCell key={cell.id}>
                                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -211,4 +191,4 @@ export const List: React.FC<ListProps> = ({ className }) => {
     )
 }
 
-export default List
+export default Library

@@ -27,11 +27,11 @@ const Account = ({ email, username, admin, created_at, className }: AccountProps
 
     return (
         <HoverCard>
-            <HoverCardTrigger className={cn(className, "w-[72px] h-[72px] cursor-pointer")}>
+            <HoverCardTrigger className={cn(className, "w-[64px] h-[64px] cursor-pointer z-50")}>
                 <Avatar
                     className={cn(
                         className,
-                        "rounded-full hover:opacity-75 hover:scale-105 transition-all border-gray-200"
+                        "rounded-full hover:opacity-75 hover:scale-105 transition-all border-gray-200 z-50"
                     )}
                 >
                     <AvatarFallback className="">{username.charAt(0)}</AvatarFallback>

@@ -2,10 +2,10 @@ import React, { createContext, useContext, useEffect, useState } from "react"
 import { useAuth } from "@/context/AuthContext"
 
 import { createLoan, fetchLoans } from "@/services/loans"
-import { LoanWithBookAndUser } from "@/lib/types"
+import { Loan } from "@/lib/types"
 
 interface LoansContextType {
-    loans: LoanWithBookAndUser[] // Lista de préstamos
+    loans: Loan[] // Lista de préstamos
     loading: boolean // Estado de carga
     error: string | null // Estado de error
     refetchLoans: () => void // Función para refrescar préstamos
@@ -15,7 +15,7 @@ interface LoansContextType {
 const LoansContext = createContext<LoansContextType | undefined>(undefined)
 
 export const LoansProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [loans, setLoans] = useState<LoanWithBookAndUser[]>([])
+    const [loans, setLoans] = useState<Loan[]>([])
     const [loading, setLoading] = useState<boolean>(false)
     const [error, setError] = useState<string | null>(null)
 

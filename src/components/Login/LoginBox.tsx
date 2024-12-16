@@ -109,7 +109,7 @@ const LoginBox: React.FC<LoginBoxProps> = ({ setIsLoginPage, className }) => {
                             <FormItem>
                                 <FormLabel>Password</FormLabel>
                                 <FormControl className="relative">
-                                    <div className="relative text-gray-600">
+                                    <div className="relative text-white">
                                         <Input
                                             type={showPassword ? "text" : "password"}
                                             placeholder="Enter password"

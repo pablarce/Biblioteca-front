@@ -83,7 +83,7 @@ const RegisterBox: React.FC<RegisterBoxProps> = ({ className, setIsLoginPage }) 
         }
 
         try {
-            await register(data.email, data.password, data.username, data.role === "admin") // Usamos `register` del contexto
+            await register(data.email, data.password, data.username, selectedRole === "admin") // Usamos `register` del contexto
             navigate(Paths.HOME, { replace: true }) // Redirige al home después del registro
         } catch (err: any) {
             setError(err.message || "Hubo un problema durante el registro.")

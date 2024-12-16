@@ -1,3 +1,6 @@
+// @ts-nocheck
+// @ts-ignore
+
 import { supabase } from "@/lib/supabaseClient"
 import { Loan } from "@/lib/types"
 

@@ -51,19 +51,19 @@ Este proyecto es una aplicación web moderna para la gestión de bibliotecas. Pe
 
 1. Clonar el repositorio:
    ```bash
-   git clone https://github.com/tu-usuario/tu-repo.git
+   git clone https://github.com/pablarce/Biblioteca-front.git
    ```
 2. Instalar las dependencias:
    ```bash
    cd tu-repo
-   npm install
+   pnpm i
    ```
 3. Configurar las variables de entorno:
    - Crear un archivo `.env` en la raíz del proyecto.
    - Agregar las claves de acceso de Supabase y Vercel.
 4. Iniciar el servidor de desarrollo:
    ```bash
-   npm run dev
+   pnpm dev
    ```
 
 ---
@@ -95,7 +95,7 @@ Este proyecto está licenciado bajo la [MIT License](LICENSE).
 ---
 
 ## Demo
-Visita la aplicación desplegada en [https://tu-proyecto.vercel.app/](https://tu-proyecto.vercel.app/).
+Visita la aplicación desplegada en [https://tu-proyecto.vercel.app/](https://biblioteca-uneat.vercel.app).
 
 ---
 

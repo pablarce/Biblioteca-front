@@ -1,0 +1,37 @@
+@startuml LibraryManagementAppArchitecture
+
+package "Frontend" {
+    [Vite] --> [React]
+    [React] --> [ShadCN]
+    [React] --> [React Router]
+    [React] --> [Tailwind CSS]
+    [React] --> [Lucide React]
+}
+
+package "Backend" {
+    [Supabase] --> [PostgreSQL]
+    [Supabase] --> "SQL Queries"
+}
+
+package "Hosting" {
+    [Vercel] --> [Frontend]
+}
+
+cloud "Supabase" {
+    [Supabase1]
+}
+
+database "PostgreSQL" as DB {
+    [Data Storage]
+}
+
+package "User Interaction" {
+    [Browser]
+}
+
+[Browser] --> [Frontend] : Accede a la UI
+[Frontend] --> [Supabase] : Consulta API
+[Supabase] --> DB : Ejecuta SQL Queries
+[Frontend] --> [Vercel] : Desplegado en
+
+@enduml

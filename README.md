@@ -1,4 +1,4 @@
-# ✨ Sistema de Gestión de Biblioteca ✨
+## ✨ Sistema de Gestión de Biblioteca ✨
 
 [![Vercel Deploy](https://img.shields.io/badge/Deployed%20on-Vercel-blue?style=flat-square&logo=vercel)](https://tu-proyecto.vercel.app/)  
 [![Supabase](https://img.shields.io/badge/Backend-Supabase-green?style=flat-square&logo=supabase)](https://supabase.com/)
@@ -10,6 +10,7 @@ Este proyecto es una aplicación web moderna para la gestión de bibliotecas. Pe
 ## Tecnologías
 
 ### Frontend
+
 - **[Vite](https://vitejs.dev/):** Para un entorno de desarrollo rápido y eficiente.
 - **[React](https://reactjs.org/):** Biblioteca principal para construir interfaces de usuario.
 - **[ShadCN](https://shadcn.dev/):** Componentes reutilizables y accesibles.
@@ -18,57 +19,63 @@ Este proyecto es una aplicación web moderna para la gestión de bibliotecas. Pe
 - **[Lucide React](https://lucide.dev/):** Íconos personalizados para mejorar la experiencia visual.
 
 ### Backend
+
 - **[Supabase](https://supabase.com/):** Plataforma de backend como servicio basada en PostgreSQL.
 - Consultas personalizadas en **SQL** para acceso a datos.
 
 ### Hosting
+
 - **[Vercel](https://vercel.com/):** Hosting rápido y escalable para el frontend.
 
 ---
 
 ## Características
+
 - **Gestión de Préstamos:** Sistema eficiente para registrar y devolver libros.
 - **UI Moderna:** Diseño responsivo y atractivo con componentes accesibles.
 - **Autenticación:** Implementada a través de Supabase para gestionar usuarios y permisos.
 - **Páginas Principales:**
-  - **Login:** Pantalla inicial para autenticación de usuarios.
-  - **Home:** Panel principal con acceso a funcionalidades de la biblioteca.
+    - **Login:** Pantalla inicial para autenticación de usuarios.
+    - **Home:** Panel principal con acceso a funcionalidades de la biblioteca.
 - **Optimizado:** Construido con Vite y Tailwind para alto rendimiento y carga rápida.
 
 ---
 
-## Capturas de Pantalla
+## Diagramas
 
-### Pantalla de Login
-![Pantalla de Login](https://via.placeholder.com/800x400?text=Pantalla+de+Login)
+### Diagrama de Arquitectura
 
-### Pantalla de Home
-![Pantalla de Home](https://via.placeholder.com/800x400?text=Pantalla+de+Home)
+![Diagrama de Arquitectura](./puml/diagram.png)
+
+### Estructura del Proyecto
+
+![Estructura del Proyecto](./puml/structure.png)
 
 ---
 
 ## Instalación y Uso
 
 1. Clonar el repositorio:
-   ```bash
-   git clone https://github.com/pablarce/Biblioteca-front.git
-   ```
+    ```bash
+    git clone https://github.com/pablarce/Biblioteca-front.git
+    ```
 2. Instalar las dependencias:
-   ```bash
-   cd tu-repo
-   pnpm i
-   ```
+    ```bash
+    cd tu-repo
+    pnpm i
+    ```
 3. Configurar las variables de entorno:
-   - Crear un archivo `.env` en la raíz del proyecto.
-   - Agregar las claves de acceso de Supabase y Vercel.
+    - Crear un archivo `.env` en la raíz del proyecto.
+    - Agregar las claves de acceso de Supabase y Vercel.
 4. Iniciar el servidor de desarrollo:
-   ```bash
-   pnpm dev
-   ```
+    ```bash
+    pnpm dev
+    ```
 
 ---
 
 ## Estructura del Proyecto
+
 ```plaintext
 src/
 ├── components/       # Componentes reutilizables
@@ -83,6 +90,7 @@ src/
 ## Contribución
 
 ¡Contribuciones son bienvenidas! Por favor:
+
 - Haz un fork del proyecto.
 - Crea una rama con tu feature: `git checkout -b feature/mi-feature`.
 - Envía un pull request.
@@ -90,19 +98,19 @@ src/
 ---
 
 ## Licencia
+
 Este proyecto está licenciado bajo la [MIT License](LICENSE).
 
 ---
 
 ## Demo
+
 Visita la aplicación desplegada en [https://tu-proyecto.vercel.app/](https://biblioteca-uneat.vercel.app).
 
 ---
 
 ## Recursos
+
 - [Guía de Inicio con Supabase](https://supabase.com/docs)
 - [Documentación de React](https://reactjs.org/docs/getting-started.html)
 - [Guía de Tailwind](https://tailwindcss.com/docs)
-
-![Tecnologías](https://via.placeholder.com/1000x400?text=Imagen+de+Todas+Las+Tecnologías+Juntas)
-

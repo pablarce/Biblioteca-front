@@ -1,0 +1,63 @@
+@startuml ReactFolderStructure
+
+[*] --> App
+[*] --> Main
+
+App --> assets : Usa
+App --> components : Contiene
+App --> context : Accede a
+App --> hooks : Usa
+App --> lib : Importa
+App --> pages : Contiene
+App --> router : Define rutas con
+App --> services : Llama a
+
+Main --> App : Monta App.tsx
+
+state "assets" as Assets {
+    [*] --> iconos
+    [*] --> estilos
+}
+
+state "components" as Components {
+    [*] --> layouts
+    layouts --> Header
+    layouts --> Footer
+}
+
+state "context" as Context {
+    [*] --> GlobalContext
+}
+
+state "hooks" as Hooks {
+    [*] --> useCustomHook
+}
+
+state "lib" as Lib {
+    [*] --> tipos
+}
+
+state "pages" as Pages {
+    [*] --> HomePage
+    [*] --> DashboardPage
+}
+
+state "router" as Router {
+    [*] --> AppRouter
+}
+
+state "services" as Services {
+    [*] --> queries
+    queries --> fetchData
+}
+
+App --> Assets
+App --> Components
+App --> Context
+App --> Hooks
+App --> Lib
+App --> Pages
+App --> Router
+App --> Services
+
+@enduml

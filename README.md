@@ -51,7 +51,7 @@ Este proyecto es una aplicación web moderna para la gestión de bibliotecas. Pe
 
 1. Clonar el repositorio:
    ```bash
-   git clone https://github.com/tu-usuario/tu-repo.git
+   git clone https://github.com/pablarce/Biblioteca-front.git
    ```
 2. Instalar las dependencias:
    ```bash

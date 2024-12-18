@@ -1,4 +1,5 @@
 ## ✨ Sistema de Gestión de Biblioteca ✨
+[https://biblioteca-uneat.vercel.app](https://biblioteca-uneat.vercel.app)
 
 [![Vercel Deploy](https://img.shields.io/badge/Deployed%20on-Vercel-blue?style=flat-square&logo=vercel)](https://tu-proyecto.vercel.app/)  
 [![Supabase](https://img.shields.io/badge/Backend-Supabase-green?style=flat-square&logo=supabase)](https://supabase.com/)
@@ -105,7 +106,7 @@ Este proyecto está licenciado bajo la [MIT License](LICENSE).
 
 ## Demo
 
-Visita la aplicación desplegada en [https://tu-proyecto.vercel.app/](https://biblioteca-uneat.vercel.app).
+Visita la aplicación desplegada en [https://biblioteca-uneat.vercel.app](https://biblioteca-uneat.vercel.app).
 
 ---
 
